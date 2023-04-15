@@ -5,6 +5,11 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
+import { CategoryModule } from './category/category.module';
+import { ProductModule } from './product/product.module';
+import { OrderModule } from './order/order.module';
+import { DetailModule } from './detail/detail.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -15,6 +20,11 @@ import { AuthModule } from './auth/auth.module';
     MongooseModule.forRoot(process.env.DB_URI),
     UserModule,
     AuthModule,
+    CategoryModule,
+    ProductModule,
+    OrderModule,
+    DetailModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
