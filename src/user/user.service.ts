@@ -15,14 +15,17 @@ export class UserService {
     private userModel: mongoose.Model<User>,
   ) {}
 
-  async findById(id: string): Promise<User> {
-    const isValidId = mongoose.isValidObjectId(id);
-    if (!isValidId) {
-      throw new BadRequestException('Please enter correct id.');
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userModel.findOne({ email: email });
+    if (!user) {
+      throw new NotFoundException('User not found.');
     }
 
-    const user = await this.userModel.findById(id);
+    return user;
+  }
 
+  async findByPhonenumber(phone: string): Promise<User> {
+    const user = await this.userModel.findOne({ phone: phone });
     if (!user) {
       throw new NotFoundException('User not found.');
     }

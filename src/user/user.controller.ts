@@ -2,17 +2,15 @@ import { User } from './schema/user.schema';
 import { UserService } from './user.service';
 import { Query as ExpressQuery } from 'express-serve-static-core';
 import {
-  Body,
   Controller,
-  Delete,
   Get,
   Param,
-  Post,
   Put,
   Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -23,8 +21,13 @@ export class UserController {
     return this.userService.findAll(query);
   }
 
-  @Get('/:id')
-  signUp(@Param('id') id: string): Promise<User> {
-    return this.userService.findById(id);
+  @Get('/:email')
+  async findByEmail(@Param('email') email: string): Promise<User> {
+    return this.userService.findByEmail(email);
+  }
+
+  @Get('/phone/:phone')
+  async findByPhoneNumber(@Param('phone') phone: string): Promise<User> {
+    return this.userService.findByPhonenumber(phone);
   }
 }
