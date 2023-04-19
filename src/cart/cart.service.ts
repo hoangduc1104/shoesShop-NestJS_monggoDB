@@ -70,12 +70,17 @@ export class CartService {
     query: Query,
   ): Promise<Cart[]> {
     const carts = await this.cartModel.find({ owner: query.userId });
-
     if (carts.length != 0) {
-      await this.cartModel.findOneAndUpdate(
+      const a = await this.cartModel.findOneAndUpdate(
         { owner: query.userId },
-        { $set: { products: { product: updateDto } } },
-        { arrayFilters: [{ _id: query.productId }] },
+        { $set: { 'products.$[p]': updateDto } },
+        {
+          arrayFilters: [
+            {
+              'p._id': new mongoose.Types.ObjectId(query.productId.toString()),
+            },
+          ],
+        },
       );
     }
 
