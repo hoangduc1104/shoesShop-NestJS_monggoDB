@@ -15,22 +15,23 @@ export class UserService {
     private userModel: mongoose.Model<User>,
   ) {}
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string) {
     const user = await this.userModel.findOne({ email: email });
     if (!user) {
-      throw new NotFoundException('User not found.');
+      return false;
+      // throw new NotFoundException('User not found.');
     }
 
-    return user;
+    return true;
   }
 
-  async findByPhonenumber(phone: string): Promise<User> {
+  async findByPhonenumber(phone: string) {
     const user = await this.userModel.findOne({ phone: phone });
     if (!user) {
-      throw new NotFoundException('User not found.');
+      return false;
     }
 
-    return user;
+    return true;
   }
 
   async findAll(query: Query): Promise<User[]> {

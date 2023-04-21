@@ -17,14 +17,17 @@ export class AuthService {
   ) {}
 
   async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
-    const { name, email, password } = signUpDto;
+    const { username, email, password, phone, address, image } = signUpDto;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await this.userModel.create({
-      name,
+      username,
       email,
       password: hashedPassword,
+      phone,
+      address,
+      image,
     });
 
     const token = this.jwtService.sign({ id: user._id });

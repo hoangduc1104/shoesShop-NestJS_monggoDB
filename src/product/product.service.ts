@@ -36,9 +36,22 @@ export class ProductService {
           ),
         }
       : {};
+    const max = query.max
+      ? {
+          price: { $lte: query.max },
+        }
+      : {};
+    const min = query.min
+      ? {
+          price: { $gte: query.min },
+        }
+      : {};
+
     const products = await this.productModel
       .find({ ...keyword })
       .find({ ...category })
+      .find({ ...max })
+      .find({ ...min })
       .limit(resPerPage)
       .skip(skip);
     return products;
