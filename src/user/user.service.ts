@@ -7,6 +7,7 @@ import { User } from './schema/user.schema';
 import { Query } from 'express-serve-static-core';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
+import { promises } from 'fs';
 
 @Injectable()
 export class UserService {
@@ -23,6 +24,16 @@ export class UserService {
     }
 
     return true;
+  }
+
+  async findByEmailUser(email: string): Promise<User> {
+    const user = await this.userModel.findOne({ email: email });
+    if (!user) {
+      return null;
+      // throw new NotFoundException('User not found.');
+    }
+
+    return user;
   }
 
   async findByPhonenumber(phone: string) {
@@ -53,5 +64,16 @@ export class UserService {
       .limit(resPerPage)
       .skip(skip);
     return users;
+  }
+
+  async uploadAvatar(image: string, userId: string): Promise<User> {
+    const user = await this.userModel.findById(userId);
+    if (user) {
+      const a = await this.userModel.findByIdAndUpdate(userId, {
+        $set: { image: image },
+      });
+    }
+
+    return user;
   }
 }
