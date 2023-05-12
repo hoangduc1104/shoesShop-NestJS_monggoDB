@@ -10,6 +10,8 @@ import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { DetailModule } from './detail/detail.module';
 import { CartModule } from './cart/cart.module';
+import { HistoryModule } from './history/history.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { CartModule } from './cart/cart.module';
     OrderModule,
     DetailModule,
     CartModule,
+    HistoryModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

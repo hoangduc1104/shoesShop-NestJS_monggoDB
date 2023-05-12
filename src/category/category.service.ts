@@ -12,7 +12,7 @@ export class CategoryService {
   ) {}
 
   async findAll(query: Query): Promise<Category[]> {
-    const resPerPage = 6;
+    const resPerPage = 5;
     const currentPage = Number(query.page) || 1;
     const skip = resPerPage * (currentPage - 1);
 
