@@ -12,6 +12,9 @@ import { DetailModule } from './detail/detail.module';
 import { CartModule } from './cart/cart.module';
 import { HistoryModule } from './history/history.module';
 import { RatingModule } from './rating/rating.module';
+import { CommentModule } from './comment/comment.module';
+import { SocketModule } from './socket/socket.module';
+import { SocketGateway } from './socket/socket.gateway';
 
 @Module({
   imports: [
@@ -29,8 +32,10 @@ import { RatingModule } from './rating/rating.module';
     CartModule,
     HistoryModule,
     RatingModule,
+    CommentModule,
+    SocketModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SocketGateway],
 })
 export class AppModule {}
