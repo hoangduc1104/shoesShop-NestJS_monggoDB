@@ -35,13 +35,6 @@ export class CartService {
     await this.cartModel.findOneAndUpdate(
       { owner: userId },
       { $push: { products: addDto } },
-      // function (error, success) {
-      //   if (error) {
-      //     console.log(error);
-      //   } else {
-      //     console.log(success);
-      //   }
-      // },
     );
 
     return carts;

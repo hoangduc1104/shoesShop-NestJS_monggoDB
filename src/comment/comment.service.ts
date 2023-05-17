@@ -10,10 +10,9 @@ export class CommentService {
   constructor(@InjectModel('Comment') private commentModel: Model<Comment>) {}
 
   async listCommentByProduct(product_id: string) {
-    const comments = await this.commentModel
-      .find({ product: product_id })
-      .populate('owner')
-      .populate('product');
+    const comments = await this.commentModel.find({ product: product_id });
+    // .populate('owner')
+    // .populate('product');
 
     if (!comments) {
       throw new HttpException('No Orders Found', HttpStatus.NO_CONTENT);
@@ -34,9 +33,11 @@ export class CommentService {
       image,
     });
 
+    const newComment = { data: comment };
+
     // if (!ratings) {
     //   throw new HttpException('No Orders Found', HttpStatus.NO_CONTENT);
     // }
-    return comment.save();
+    return newComment;
   }
 }

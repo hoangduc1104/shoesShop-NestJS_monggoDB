@@ -35,6 +35,14 @@ export class UserService {
 
     return user;
   }
+  async findById(id: string): Promise<User> {
+    const user = await this.userModel.findById(id);
+
+    if (!user) {
+      return null;
+    }
+    return user;
+  }
 
   async findByPhonenumber(phone: string) {
     const user = await this.userModel.findOne({ phone: phone });

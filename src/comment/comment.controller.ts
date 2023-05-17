@@ -44,9 +44,9 @@ export class CommentController {
     try {
       const comment = this.commentService.createComment(query, createDto);
 
-      this.commentGateway.handleComment(null, { ...query, ...createDto });
+      this.commentGateway.handleComment(null, (await comment).data);
 
-      return comment;
+      return (await comment).data;
     } catch (error) {
       console.log(error);
     }
